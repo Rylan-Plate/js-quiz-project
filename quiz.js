@@ -16,30 +16,36 @@ let correctAnswers = [1, 0, 0, 0, 2]
 
 let currentQuestion = 0
 let score = 0
-function showQuestionsAndAnswers(questionArray, currentQuestion, answerArray){
-    
-    document.getElementById("question").innerHTML = questionArray[currentQuestion]
-    document.getElementById("a1").innerHTML = answerArray[currentQuestion][0]
-    document.getElementById("a2").innerHTML = answerArray[currentQuestion][1]
-    document.getElementById("a3").innerHTML = answerArray[currentQuestion][2]
-    document.getElementById("a4").innerHTML = answerArray[currentQuestion][3]
-    return currentQuestion + 1
+function showQuestionsAndAnswers(questionArray, currentQuestion, answerArray, score){
+    if (currentQuestion < 5){
+        document.getElementById("question").innerHTML = questionArray[currentQuestion]
+        document.getElementById("a1").innerHTML = answerArray[currentQuestion][0]
+        document.getElementById("a2").innerHTML = answerArray[currentQuestion][1]
+        document.getElementById("a3").innerHTML = answerArray[currentQuestion][2]
+        document.getElementById("a4").innerHTML = answerArray[currentQuestion][3]
+        return currentQuestion + 1
+    }
+    else{
+        document.getElementById("question").innerHTML = "Je bent klaar! Je eindscore: " + score
+        document.getElementById("question").style.fontSize = "200%"
+        document.getElementById("answers").style.display = "none"
+        document.getElementById("nextQuestion").style.display = "none"
+        document.getElementById("currentScore").style.display = "none"
+    }
+
 }
 function correctCheck(correctAnswers, currentQuestion, answerArray, score){
     let givenAnswer = document.getElementById("answers").value
     if (givenAnswer == correctAnswers[currentQuestion-1]){
         document.getElementById("feedback").innerHTML = "Goed gedaan! Antwoord " + answerArray[currentQuestion-1][givenAnswer] + " is juist!"
         score += 1
-        console.log(score)
         document.getElementById("currentScore").innerHTML = "Huidige score = " + score
     }
     else {
        document.getElementById("feedback").innerHTML = "Het door jou ingevoerde antwoord is... Onjuist!"
     }
-    return [currentQuestion = showQuestionsAndAnswers(questionArray, currentQuestion, answerArray), score]
+    return [currentQuestion = showQuestionsAndAnswers(questionArray, currentQuestion, answerArray, score), score]
 }
-console.log(score)
-
 document.getElementById("nextQuestion").addEventListener("click", () =>{
     returnedValues = correctCheck(correctAnswers, currentQuestion, answerArray, score)
     currentQuestion = returnedValues[0]
